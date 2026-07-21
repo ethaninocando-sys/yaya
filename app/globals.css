@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Font families (backed by next/font CSS vars) ---- */
+  --font-dm-serif: var(--ff-dm-serif), ui-serif, Georgia, serif;
+  --font-sacramento: var(--ff-sacramento), cursive;
+  --font-karla: var(--ff-karla), ui-sans-serif, system-ui, sans-serif;
+  --font-anton: var(--ff-anton), Impact, sans-serif;
+  --font-archivo: var(--ff-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-cormorant: var(--ff-cormorant), ui-serif, Georgia, serif;
+  --font-jost: var(--ff-jost), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Iteration 1 · Boutique (warm editorial) ---- */
+  --color-boutique-cream: #f4ead9;
+  --color-boutique-cream2: #fbf4e8;
+  --color-boutique-brown: #23160d;
+  --color-boutique-brown2: #4a362a;
+  --color-boutique-ink: #2e2015;
+  --color-boutique-muted: #6a5642;
+  --color-boutique-teal: #2b9e93;
+  --color-boutique-tan: #a9743f;
+  --color-boutique-gold: #c6a24a;
+  --color-boutique-parchment: #d8c7a9;
+
+  /* ---- Iteration 2 · Rodeo (bold signage) ---- */
+  --color-rodeo-sand: #efe6d2;
+  --color-rodeo-black: #1a1613;
+  --color-rodeo-rust: #c6522e;
+  --color-rodeo-gold: #f4c24b;
+  --color-rodeo-muted: #c6b79b;
+
+  /* ---- Iteration 3 · Atelier (minimal luxe) ---- */
+  --color-atelier-paper: #f6f3ec;
+  --color-atelier-ink: #262220;
+  --color-atelier-muted: #5b534b;
+  --color-atelier-gold: #9a7b54;
+  --color-atelier-gold2: #c9a97a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+}
+
+::selection {
+  background: #2b9e93;
+  color: #f4ead9;
+}
+
+/* Shared marquee (duplicated track translated by -50%) */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  animation: marquee linear infinite;
+  will-change: transform;
+}
+
+/* Accessible focus ring for links/buttons across all iterations */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
