@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "assets:placeholders": "node scripts/generate-placeholders.mjs"
+    "assets:placeholders": "node scripts/generate-placeholders.mjs",
+    "assets:fetch": "node scripts/fetch-assets.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",
