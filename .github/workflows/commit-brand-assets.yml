@@ -1,0 +1,40 @@
+name: Commit brand assets
+
+# One-shot helper: fetches the generated brand imagery (which the local dev
+# environment's network policy could not download) and commits the real JPGs
+# into public/assets on this branch. Run manually from the Actions tab.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/dev-server-setup-ee1iq5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch brand imagery into public/assets
+        run: npm run assets:fetch
+
+      - name: Commit fetched assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/assets/*.jpg
+          if git diff --staged --quiet; then
+            echo "No asset changes to commit."
+          else
+            git commit -m "Add generated brand imagery as committed assets"
+            git push
+          fi
