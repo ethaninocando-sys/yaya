@@ -2,8 +2,14 @@ name: Commit brand assets
 
 # One-shot helper: fetches the generated brand imagery (which the local dev
 # environment's network policy could not download) and commits the real JPGs
-# into public/assets on this branch. Run manually from the Actions tab.
+# into public/assets on this branch. Runs on push to the branch; the commit it
+# makes only touches public/assets, which is path-ignored so it does not loop.
 on:
+  push:
+    branches:
+      - claude/dev-server-setup-ee1iq5
+    paths-ignore:
+      - 'public/assets/**'
   workflow_dispatch:
 
 permissions:
